@@ -189,8 +189,6 @@ class ClassifierNode(DecisionNode):
         """
         return f"Predicting: {self.predictedClass}" if self.predictedClass!="" else f"Spliting on\n{self.featureName}={self.featureVal}"
 
-
-
 class DTClassifier(DecisionTree):
     """
     A Classification Tree Definition
@@ -271,47 +269,3 @@ class DTClassifier(DecisionTree):
             return node.predictedClass
 
         return super()._predict(node, samp)
-
-
-    def evaluate(self, data: DataFrame):
-        """
-        Evaluate the Classifier
-
-        Args:
-            data (DataFrame): the data to be evaluated
-
-        Returns:
-            dict: with accuracy, sensitivity, specificity, precision
-        """
-
-        TP = 0 # TRUE POSITIVE
-        TN = 0 # TRUE NEGATIVE
-        FP = 0 # FALSE POSITIVE 
-        FN = 0 # FALSE NEGATIVE
-        # y_pred = [
-        #     self.predict(data.iloc[i])
-        #     for i in range(0,len(data))
-        # ]
-        for i in range(len(data)):
-            s = data.iloc[i]
-            predicted_value = self.predict(s)
-            
-            if s[labelName] == predicted_value:
-                if predicted_value == cls_x:
-                    TP+=1 
-                else:
-                    TN+=1 
-            else:
-                if predicted_value == cls_x:
-                    FP+=1 
-                else:
-                    FN+=1 
-
-        metrics = {}
-        metrics["accuracy"] = (TP+TN)/(TP+TN+FP+FN)
-        metrics["sensitivity"] = TP/(TP+FN)
-        metrics["specificity"] = TN/(TN+FP)
-        metrics["precision"] = TP/(TP+FP)
-
-        return metrics
-

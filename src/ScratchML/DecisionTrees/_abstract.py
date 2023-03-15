@@ -4,6 +4,8 @@ from IPython.display import display
 from IPython import get_ipython
 from graphviz import Digraph
 
+from ScratchML._model_types import PredictionModel
+
 class DecisionNode:
     """
     Abstract Decision Node Definition
@@ -40,7 +42,7 @@ class DecisionNode:
         """
         pass
 
-class DecisionTree:
+class DecisionTree(PredictionModel):
     """
     Decision tree abstract definition
     """
